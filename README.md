@@ -1,6 +1,6 @@
-# Igolf::Client
+# IGolf
 
-TODO: Write a gem description
+The iGolf client library allows users/members of iGolf to access iGolf's course, lists, GPS, vector and general reference data.
 
 ## Installation
 
@@ -16,9 +16,29 @@ Or install it yourself as:
 
     $ gem install igolf-client
 
+Once installed, simply create an igolf-init.rb in your initializers folder containing the following
+
+		IGolf.configure do |config|
+		  config.application_api_key = "YOUR_KEY_GOES_HERE"
+		  config.api_key = "YOUR_KEY_GOES_HERE" #if you are using private methods
+		  config.application_secret_key = "YOUR_KEY_GOES_HERE"
+		end
+
 ## Usage
 
-TODO: Write usage instructions here
+To use the igolf-client gem simply add 
+
+		require 'igolf-client'
+		
+to the top of your file and then call
+
+	IGolf::get(ACTION_CODE, REQUEST_PAYLOAD)
+
+Example:
+
+	IGolf::get("CourseList", {"active": 1, "id_country": 1})
+	
+This will return all active courses in the United States.
 
 ## Contributing
 
