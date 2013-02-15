@@ -2,6 +2,8 @@ require "igolf-client/version"
 require "openssl"
 require "base64"
 require "net/http"
+require "rest_client"
+require "active_support/core_ext"
 
 require "igolf-client/configuration"
 
@@ -25,17 +27,7 @@ module IGolf
       string_to_sign << "#{configuration.api_key}/" unless configuration.api_key.nil?
       string_to_sign << "#{configuration.api_version}/#{configuration.signature_version}/#{configuration.signature_method}/#{timestamp}/#{configuration.request_format}"
 
-
-      uri = URI.parse(configuration.api_host)
-      http = Net::HTTP.new(uri.host, uri.port)
-      #http.use_ssl = true
-      #http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      
-      request = Net::HTTP::Post.new(generate_signed_url(string_to_sign))
-      request.add_field('Content-Type', 'application/json')
-      request.body = request_payload
-      response = http.request(request)
-      response_data = response.body
+      RestClient.post configuration.api_host + generate_signed_url(string_to_sign), request_payload.to_json, :content_type => :json, :accept => :json
       
     end
     

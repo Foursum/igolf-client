@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/igolf-client/version', __FILE__)
+$:.push File.expand_path("../lib", __FILE__)
+require "igolf-client/version"
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Adam MacDonald"]
@@ -14,4 +15,6 @@ Gem::Specification.new do |gem|
   gem.name          = "igolf-client"
   gem.require_paths = ["lib"]
   gem.version       = IGolf::VERSION
+  
+  gem.add_dependency "rest-client"
 end
