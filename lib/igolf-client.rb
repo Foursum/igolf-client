@@ -10,8 +10,11 @@ require "igolf-client/configuration"
 module IGolf
   class << self
     
+    @_configured = false
+    
     def configure(&block)
       yield(configuration)
+      @_configured = true
       configuration
     end
 
@@ -20,6 +23,11 @@ module IGolf
     end
     
     def get(action_code, request_payload = {})
+      
+      raise Exception.new("The iGolf Client must configured before use") unless @_configured
+      raise Exception.new("application_api_key required") if configuration.application_api_key.nil?
+      raise Exception.new("application_secret_key required") if configuration.application_secret_key.nil?
+      
       request_time = Time.now
       timestamp = request_time.strftime("%y%m%d%H%M%S%z")
      
@@ -41,7 +49,7 @@ module IGolf
       hmac_string = OpenSSL::HMAC.digest(digest, key, string_to_sign)
       signature = Base64.urlsafe_encode64(hmac_string).gsub!(/=+$/, "")
         
-      url = string_elements.insert(-2, signature).join("/")
+      url = string_elements.insert(-3, signature).join("/")
     end
     
   end
