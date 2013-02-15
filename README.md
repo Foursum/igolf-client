@@ -36,7 +36,7 @@ to the top of your file and then call
 
 Example:
 
-	IGolf::get("CourseList", {"active": 1, "id_country": 1})
+	IGolf::get("CourseList", {"active" => 1, "id_country" => 1})
 	
 This will return all active courses in the United States.
 
