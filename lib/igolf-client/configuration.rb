@@ -14,7 +14,7 @@ module IGolf
       @application_api_key = nil
       @api_key = nil
       @application_secret_key = nil
-      @api_host = "http://connect.igolf.com/rest/action/"
+      @api_host = "https://api-connect.igolf.com/rest/action/"
       @api_version = "1.0"
       @signature_method = "HmacSHA256"
       @signature_version = "2.0"
