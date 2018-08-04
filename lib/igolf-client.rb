@@ -42,7 +42,7 @@ module IGolf
     private
     
     def generate_signed_url(string_to_sign)
-      digest = OpenSSL::Digest::Digest.new("sha256")
+      digest = OpenSSL::Digest.new("sha256")
       string_elements = string_to_sign.split("/")
       key = (string_elements.length == 8) ? configuration.application_secret_key + string_elements[3] : configuration.application_secret_key
         
